@@ -56,8 +56,9 @@ export class Visual implements IVisual {
         for (let i=0; i < categoricalMapping.categories[0].values.length; i++) {
             const span: HTMLElement = document.createElement("span");
             span.appendChild(document.createTextNode(categoricalMapping.categories[0].values[i].toString()));
-            span.style.width = 50 * +categoricalMapping.values[0].values[i].toString() + "px";
-            span.style.backgroundColor = this.formattingSettings.dataPointCard.defaultColor.value.value;
+            span.style.width = 50 * categoricalMapping.values[0].values[i].toString().length + "px";
+            const backgroundColor = categoricalMapping.categories[0].objects && categoricalMapping.categories[0].objects[i] && categoricalMapping.categories[0].objects[i].dataPoint ? categoricalMapping.categories[0].objects[i].dataPoint.defaultColor['solid'].color : "light blue";
+            span.style.backgroundColor = backgroundColor;
             this.target.appendChild(span);
         }
     }
@@ -66,7 +67,7 @@ export class Visual implements IVisual {
      * Returns properties pane formatting model content hierarchies, properties and latest formatting values, Then populate properties pane.
      * This method is called once every time we open properties pane or when the user edit any format property. 
      */
-    public getFormattingModel(): powerbi.visuals.FormattingModel {
+    public getFormattingModel(): powerbi.visuals.FormattingModel {      
         return this.formattingSettingsService.buildFormattingModel(this.formattingSettings);
     }
 }

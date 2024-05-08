@@ -31,6 +31,7 @@ import { formattingSettings } from "powerbi-visuals-utils-formattingmodel";
 import FormattingSettingsCard = formattingSettings.SimpleCard;
 import FormattingSettingsSlice = formattingSettings.Slice;
 import FormattingSettingsModel = formattingSettings.Model;
+import { dataViewWildcard } from "powerbi-visuals-utils-dataviewutils";
 
 /**
  * Data Point Formatting Card
@@ -40,7 +41,8 @@ class DataPointCardSettings extends FormattingSettingsCard {
         name: "defaultColor",
         displayName: "Default color",
         value: { value: "" },
-        instanceKind: powerbi.VisualEnumerationInstanceKinds.ConstantOrRule
+        instanceKind: powerbi.VisualEnumerationInstanceKinds.ConstantOrRule,
+        selector: dataViewWildcard.createDataViewWildcardSelector(dataViewWildcard.DataViewWildcardMatchingOption.InstancesAndTotals)
     });
 
     name: string = "dataPoint";
